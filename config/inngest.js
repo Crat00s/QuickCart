@@ -1,5 +1,4 @@
 import { Inngest } from "inngest";
-import { connect } from "mongoose";
 import connectDB from "./db";
 import User from "@/models/User";
 
@@ -11,7 +10,7 @@ export const syncUserCreation = inngest.createFunction(
     id: "sync-user-from-clerk",
   },
   {
-    event: "clerk/user.created",
+    event: "user.created",
   },
   async ({ event }) => {
     const { id, first_name, last_name, email_addresses, image_url } = event.data;
@@ -30,7 +29,7 @@ export const syncUserUpdate = inngest.createFunction(
   {
     id: "sync-user-update-from-clerk",
   },
-  { event: "clerk/user.updated" },
+  { event: "user.updated" },
   async ({ event }) => {
     const { id, first_name, last_name, email_addresses, image_url } = event.data;
     const userData = {
@@ -48,7 +47,7 @@ export const syncUserDeletion = inngest.createFunction(
   {
     id: "sync-user-deletion-from-clerk",
   },
-  { event: "clerk/user.deleted" },
+  { event: "user.deleted" },
   async ({ event }) => {
     const { id } = event.data;
     await connectDB();
