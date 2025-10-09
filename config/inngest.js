@@ -1,6 +1,6 @@
 import { Inngest } from "inngest";
+import User from "../models/User";
 import connectDB from "./db";
-import User from "@/models/User";
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "quickcard-next" });
@@ -27,7 +27,7 @@ export const syncUserCreation = inngest.createFunction(
 
 export const syncUserUpdate = inngest.createFunction(
   {
-    id: "sync-user-update-from-clerk",
+    id: "update_user-from-clerk",
   },
   { event: "clerk/user.updated" },
   async ({ event }) => {
@@ -45,7 +45,7 @@ export const syncUserUpdate = inngest.createFunction(
 
 export const syncUserDeletion = inngest.createFunction(
   {
-    id: "sync-user-deletion-from-clerk",
+    id: "delete-user-from-clerk",
   },
   { event: "clerk/user.deleted" },
   async ({ event }) => {
